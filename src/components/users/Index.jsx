@@ -152,7 +152,7 @@ function Index() {
         <td scope="col">{user.password}</td>
         <td scope="col" className='btn btn-danger mx-1' onClick={()=> deleteUser(user._id)}>Delete</td>
         <td scope="col" className='btn btn-info mx-1'><Link to={`/user/${user._id}`}>Details</Link></td>
-        <td scope="col" className='btn btn-dark mx-1' onClick={()=> deleteUser(user._id)}><Link to={`/user/edit/${user._id}`}>Edit</Link></td>
+        <td scope="col" className='btn btn-dark mx-1'><Link to={`/user/edit/${user._id}`}>Edit</Link></td>
         
         </tr>
         </React.Fragment>

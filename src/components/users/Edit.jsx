@@ -7,7 +7,6 @@ import Loader from './Loader.jsx';
 import Input from '../sharedcomp/Input.jsx';
 
 export default function Edit() {
-
       const navigate=useNavigate();
       let[loader,setLoader]=useState(false);
 
@@ -31,6 +30,30 @@ export default function Edit() {
         },[])
         let[errorBack,setErrorBack]=useState('');
 
+        const inputConfigs=[
+          {
+          id:'name',
+          title:'User Name',
+          type:'text',
+          name:'name',
+          value:user.name
+         
+        } ,{
+          id:'email',
+          title:'User Email',
+          type:'email',
+          name:'email',
+          value:user.email
+          
+        },{
+          id:'password',
+          title:'Password',
+          type:'password',
+          name:'password',
+          value:user.password
+         
+        }]
+
         const changeData = (e)=>{
           const {name,value}=e.target;
           setUser({...user,[name] :value});
@@ -45,7 +68,7 @@ export default function Edit() {
           setLoader(false);
          }else {
           try{
-            const {data} = await axios.post(`https://crud-users-gold.vercel.app/users/`,user);
+            const {data} = await axios.put(`https://crud-users-gold.vercel.app/users/${id}`,user);
           console.log(data);
           if (data.message=='success'){
             toast.success('User Edited successfully');
@@ -154,9 +177,9 @@ export default function Edit() {
         
                 {errorBack && <p className='text-danger'>{errorBack}</p>}
                 <form onSubmit={sendData}>
-                   <Input errors={errors} id={'name'} title={'User Name'} type={'text'} name={'name'} changeData={changeData} value={user.name}/>
-                   <Input errors={errors} id={'email'} title={'User Email'} type={'email'} name={'email'} changeData={changeData} value={user.email}/>
-                   <Input errors={errors} id={'password'} title={'Password'} type={'password'} name={'password'} changeData={changeData} value={user.password}/>
+                {inputConfigs.map((config)=>(
+                    <Input key={config.id}{...config} errors={errors} changeData={changeData}/>
+                   ))}
                 <div className="mb-3">
                     <input type='submit' className='form-control' value='Add User' />
                 </div>

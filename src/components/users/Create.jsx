@@ -8,6 +8,27 @@ import Input from '../sharedcomp/Input.jsx';
 
 export default function Create() {
 
+      const inputConfigs=[
+        {
+        id:'name',
+        title:'User Name',
+        type:'text',
+        name:'name',
+       
+      } ,{
+        id:'email',
+        title:'User Email',
+        type:'email',
+        name:'email',
+        
+      },{
+        id:'password',
+        title:'Password',
+        type:'password',
+        name:'password',
+       
+      }]
+
       const navigate=useNavigate();
       let[loader,setLoader]=useState(false);
 
@@ -147,9 +168,9 @@ export default function Create() {
         
                 {errorBack && <p className='text-danger'>{errorBack}</p>}
                 <form onSubmit={sendData}>
-                   <Input errors={errors} id={'name'} title={'User Name'} type={'text'} name={'name'} changeData={changeData}/>
-                   <Input errors={errors} id={'email'} title={'User Email'} type={'email'} name={'email'} changeData={changeData}/>
-                   <Input errors={errors} id={'password'} title={'Password'} type={'password'} name={'password'} changeData={changeData}/>
+                   {inputConfigs.map((config)=>(
+                    <Input key={config.id}{...config}errors={errors} changeData={changeData}/>
+                   ))}
                 <div className="mb-3">
                     <input type='submit' className='form-control' value='Add User' />
                 </div>
